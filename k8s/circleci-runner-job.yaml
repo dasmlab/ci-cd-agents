@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: circleci-buildah-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: runner
+        image: <your-circleci-runner-image>
+        env:
+        - name: CIRCLECI_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: circleci-runner-secrets
+              key: circleci_token
+        - name: REGISTRY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: registry-secrets
+              key: password
+        volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+      restartPolicy: Never
+      volumes:
+      - name: workspace
+        emptyDir: {}
+  backoffLimit: 0 

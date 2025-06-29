@@ -1,0 +1,17 @@
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl git buildah uidmap fuse-overlayfs ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user for running the runner
+RUN useradd -m runner
+USER runner
+WORKDIR /home/runner
+
+# Placeholder for CircleCI runner installation (customize as needed)
+# RUN curl -O -L <circleci-runner-url> && ...
+
+# Entrypoint (to be overridden by K8s command)
+CMD ["/bin/bash"] 

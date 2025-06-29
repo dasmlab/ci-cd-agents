@@ -1,0 +1,13 @@
+# Ignore build artifacts
+*.tar.gz
+*.img
+*.log
+
+# Ignore sensitive files
+secrets.env
+*.key
+*.token
+
+# Ignore editor and OS files
+.DS_Store
+*.swp 
