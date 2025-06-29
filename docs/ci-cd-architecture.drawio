@@ -58,7 +58,7 @@
           <mxGeometry x="520" y="410" width="40" height="40" as="geometry"/>
         </mxCell>
         <!-- Kubernetes Cluster label, lower right, italic, light color -->
-        <mxCell id="k8slabel" value="<i>Kubernetes Cluster</i>" style="text;html=1;align=right;verticalAlign=bottom;fontSize=18;fontColor=#94a3b8;fontStyle=2;" parent="2" vertex="1">
+        <mxCell id="k8slabel" value="Kubernetes Cluster" style="text;html=1;align=right;verticalAlign=bottom;fontSize=18;fontColor=#94a3b8;fontStyle=2;" parent="2" vertex="1">
           <mxGeometry x="650" y="570" width="280" height="40" as="geometry"/>
         </mxCell>
       </root>
