@@ -1,51 +1,65 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="CI-CD-Architecture" id="ci-cd-arch-1">
-    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+  <diagram name="CI-CD-Architecture">
+    <mxGraphModel dx="2610" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0" adaptiveColors="auto">
       <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <!-- Kubernetes Cluster container -->
-        <mxCell id="2" value="Kubernetes Cluster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f7fa;strokeColor=#e3e8ee;fontSize=18;fontColor=#1e293b;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="900" height="600" as="geometry" />
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Kubernetes Cluster background (no border, light fill) -->
+        <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f7fa;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="950" height="600" as="geometry"/>
         </mxCell>
-        <!-- Ephemeral CI/CD Runner Pod -->
-        <mxCell id="3" value="Ephemeral CI/CD Runner Pod (GitHub Actions or CircleCI)" style="shape=mxgraph.k8s.pod;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#c7d2fe;fontSize=16;fontColor=#1e293b;shadow=1;" vertex="1" parent="2">
-          <mxGeometry x="120" y="120" width="120" height="80" as="geometry" />
+        <!-- Main entities with official k8s icons -->
+        <mxCell id="pod" value="Ephemeral CI/CD Runner Pod&#10;(GitHub Actions or CircleCI)" style="shape=mxgraph.k8s.pod;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#c7d2fe;fontSize=16;fontColor=#1e293b;shadow=1;" parent="2" vertex="1">
+          <mxGeometry x="120" y="160" width="140" height="90" as="geometry"/>
         </mxCell>
-        <!-- Runner Container -->
-        <mxCell id="4" value="Runner Container" style="shape=mxgraph.k8s.container;whiteSpace=wrap;html=1;strokeColor=#388e3c;fillColor=#e8f5e9;fontSize=14;fontColor=#1e293b;shadow=1;" vertex="1" parent="2">
-          <mxGeometry x="300" y="120" width="100" height="80" as="geometry" />
+        <mxCell id="runner" value="Runner Container" style="shape=mxgraph.k8s.container;whiteSpace=wrap;html=1;strokeColor=#388e3c;fillColor=#e8f5e9;fontSize=14;fontColor=#1e293b;shadow=1;" parent="2" vertex="1">
+          <mxGeometry x="320" y="160" width="120" height="90" as="geometry"/>
         </mxCell>
-        <!-- Builder Container -->
-        <mxCell id="5" value="Builder Container (Buildah rootless)" style="shape=mxgraph.k8s.container;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#e3f2fd;fontSize=14;fontColor=#1e293b;shadow=1;" vertex="1" parent="2">
-          <mxGeometry x="480" y="120" width="100" height="80" as="geometry" />
+        <mxCell id="builder" value="Builder Container&#10;(Buildah rootless)" style="shape=mxgraph.k8s.container;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#e3f2fd;fontSize=14;fontColor=#1e293b;shadow=1;" parent="2" vertex="1">
+          <mxGeometry x="520" y="160" width="140" height="90" as="geometry"/>
         </mxCell>
-        <!-- Ephemeral PVC Workspace -->
-        <mxCell id="6" value="Ephemeral PVC Workspace" style="shape=mxgraph.k8s.persistent_volume_claim;whiteSpace=wrap;html=1;strokeColor=#8e24aa;fillColor=#f3e5f5;fontSize=14;fontColor=#1e293b;shadow=1;" vertex="1" parent="2">
-          <mxGeometry x="300" y="250" width="120" height="60" as="geometry" />
+        <mxCell id="pvc" value="Ephemeral PVC Workspace" style="shape=mxgraph.k8s.persistent_volume_claim;whiteSpace=wrap;html=1;strokeColor=#8e24aa;fillColor=#f3e5f5;fontSize=14;fontColor=#1e293b;shadow=1;" parent="2" vertex="1">
+          <mxGeometry x="320" y="320" width="160" height="70" as="geometry"/>
         </mxCell>
-        <!-- Container Registry -->
-        <mxCell id="7" value="Container Registry" style="shape=mxgraph.k8s.registry;whiteSpace=wrap;html=1;strokeColor=#0288d1;fillColor=#e1f5fe;fontSize=14;fontColor=#1e293b;shadow=1;" vertex="1" parent="2">
-          <mxGeometry x="480" y="250" width="120" height="60" as="geometry" />
+        <mxCell id="registry" value="Container Registry" style="shape=mxgraph.k8s.registry;whiteSpace=wrap;html=1;strokeColor=#0288d1;fillColor=#e1f5fe;fontSize=14;fontColor=#1e293b;shadow=1;" parent="2" vertex="1">
+          <mxGeometry x="520" y="320" width="160" height="70" as="geometry"/>
         </mxCell>
-        <!-- Arrows/Edges -->
-        <mxCell id="8" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#1976d2;" edge="1" parent="2" source="3" target="4">
-          <mxGeometry relative="1" as="geometry" />
+        <!-- Connectors with clear labels and spacing -->
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#1976d2;strokeWidth=2;" parent="2" source="pod" target="runner" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="9" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#388e3c;" edge="1" parent="2" source="4" target="5">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#388e3c;strokeWidth=2;" parent="2" source="runner" target="builder" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="10" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#8e24aa;" edge="1" parent="2" source="5" target="6">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#8e24aa;strokeWidth=2;" parent="2" source="builder" target="pvc" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="11" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#0288d1;" edge="1" parent="2" source="5" target="7">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=#0288d1;strokeWidth=2;" parent="2" source="builder" target="registry" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="12" value="Workspace cleaned up after job" style="edgeStyle=curved;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#8e24aa;fontColor=#8e24aa;" edge="1" parent="2" source="6" target="3">
-          <mxGeometry relative="1" as="geometry" />
+        <!-- Dashed annotation edges -->
+        <mxCell id="e5" value="Workspace cleaned up after job" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#8e24aa;fontColor=#8e24aa;" parent="2" source="pvc" target="pod" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="13" value="Supports both GitHub Actions and CircleCI" style="edgeStyle=curved;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#fbbf24;fontColor=#fbbf24;" edge="1" parent="2" source="4" target="3">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e6" value="Supports both GitHub Actions and CircleCI" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#fbbf24;fontColor=#fbbf24;" parent="2" source="runner" target="pod" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Kubernetes icons for visual context (optional, can add more as needed) -->
+        <mxCell id="icon1" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;prIcon=pod" vertex="1" parent="2">
+          <mxGeometry x="120" y="80" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon2" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;prIcon=container" vertex="1" parent="2">
+          <mxGeometry x="320" y="80" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon3" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;prIcon=pvc" vertex="1" parent="2">
+          <mxGeometry x="320" y="410" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon4" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;shape=mxgraph.kubernetes.icon2;prIcon=registry" vertex="1" parent="2">
+          <mxGeometry x="520" y="410" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Kubernetes Cluster label, lower right, italic, light color -->
+        <mxCell id="k8slabel" value="<i>Kubernetes Cluster</i>" style="text;html=1;align=right;verticalAlign=bottom;fontSize=18;fontColor=#94a3b8;fontStyle=2;" parent="2" vertex="1">
+          <mxGeometry x="650" y="570" width="280" height="40" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
