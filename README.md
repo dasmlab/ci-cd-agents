@@ -1,4 +1,4 @@
-# ci-cd-agents
+# ci-cd-agents - v0.0.2
 
 Ephemeral Kubernetes-native CI/CD runners for GitHub Actions and CircleCI, using Buildah for rootless, secure container builds.
 
