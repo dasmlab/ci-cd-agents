@@ -1,44 +1,51 @@
 <mxfile host="app.diagrams.net">
   <diagram name="CI-CD-Architecture" id="ci-cd-arch-1">
-    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Kubernetes Cluster container -->
         <mxCell id="2" value="Kubernetes Cluster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=18;fontColor=#1976d2;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="700" height="400" as="geometry"/>
+          <mxGeometry x="40" y="40" width="900" height="600" as="geometry" />
         </mxCell>
-        <mxCell id="3" value="Ephemeral CI/CD Runner Pod (GitHub Actions or CircleCI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#fbc02d;fontSize=16;fontColor=#fbc02d;" vertex="1" parent="2">
-          <mxGeometry x="60" y="80" width="220" height="60" as="geometry"/>
+        <!-- Ephemeral CI/CD Runner Pod -->
+        <mxCell id="3" value="Ephemeral CI/CD Runner Pod (GitHub Actions or CircleCI)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#fffde7;fontSize=16;fontColor=#1976d2;shadow=1;" vertex="1" parent="2">
+          <mxGeometry x="120" y="120" width="260" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="4" value="Runner Container (GitHub Actions or CircleCI)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#388e3c;fontSize=14;fontColor=#388e3c;" vertex="1" parent="2">
-          <mxGeometry x="100" y="180" width="200" height="50" as="geometry"/>
+        <!-- Runner Container -->
+        <mxCell id="4" value="Runner Container (GitHub Actions or CircleCI)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#388e3c;fillColor=#e8f5e9;fontSize=14;fontColor=#388e3c;shadow=1;" vertex="1" parent="2">
+          <mxGeometry x="180" y="250" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="5" value="Builder Container (Buildah rootless)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=14;fontColor=#1976d2;" vertex="1" parent="2">
-          <mxGeometry x="350" y="180" width="200" height="50" as="geometry"/>
+        <!-- Builder Container -->
+        <mxCell id="5" value="Builder Container (Buildah rootless)" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#1976d2;fillColor=#e3f2fd;fontSize=14;fontColor=#1976d2;shadow=1;" vertex="1" parent="2">
+          <mxGeometry x="500" y="250" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="6" value="Ephemeral PVC Workspace" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#8e24aa;fontSize=14;fontColor=#8e24aa;" vertex="1" parent="2">
-          <mxGeometry x="200" y="270" width="180" height="50" as="geometry"/>
+        <!-- Ephemeral PVC Workspace -->
+        <mxCell id="6" value="Ephemeral PVC Workspace" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#8e24aa;fillColor=#f3e5f5;fontSize=14;fontColor=#8e24aa;shadow=1;" vertex="1" parent="2">
+          <mxGeometry x="320" y="370" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="7" value="Container Registry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1f5fe;strokeColor=#0288d1;fontSize=14;fontColor=#0288d1;" vertex="1" parent="2">
-          <mxGeometry x="500" y="270" width="180" height="50" as="geometry"/>
+        <!-- Container Registry -->
+        <mxCell id="7" value="Container Registry" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#0288d1;fillColor=#e1f5fe;fontSize=14;fontColor=#0288d1;shadow=1;" vertex="1" parent="2">
+          <mxGeometry x="650" y="370" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#1976d2;" edge="1" parent="2" source="3" target="4">
-          <mxGeometry relative="1" as="geometry"/>
+        <!-- Arrows/Edges -->
+        <mxCell id="8" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#1976d2;" edge="1" parent="2" source="3" target="4">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#388e3c;" edge="1" parent="2" source="4" target="5">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="9" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#388e3c;" edge="1" parent="2" source="4" target="5">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#8e24aa;" edge="1" parent="2" source="5" target="6">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="10" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#8e24aa;" edge="1" parent="2" source="5" target="6">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#0288d1;" edge="1" parent="2" source="5" target="7">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="11" value="" style="edgeStyle=curved;rounded=1;html=1;endArrow=block;strokeColor=#0288d1;" edge="1" parent="2" source="5" target="7">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="12" value="Workspace cleaned up after job" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;strokeColor=#8e24aa;fontColor=#8e24aa;" edge="1" parent="2" source="6" target="3">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="12" value="Workspace cleaned up after job" style="edgeStyle=curved;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#8e24aa;fontColor=#8e24aa;" edge="1" parent="2" source="6" target="3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="13" value="Supports both GitHub Actions and CircleCI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;strokeColor=#fbc02d;fontColor=#fbc02d;" edge="1" parent="2" source="4" target="3">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="13" value="Supports both GitHub Actions and CircleCI" style="edgeStyle=curved;rounded=1;html=1;dashed=1;endArrow=open;strokeColor=#fbc02d;fontColor=#fbc02d;" edge="1" parent="2" source="4" target="3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
