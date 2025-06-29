@@ -12,7 +12,7 @@ Ephemeral Kubernetes-native CI/CD runners for GitHub Actions and CircleCI, using
 
 **Kubernetes-native CI/CD Architecture:**
 
-![CI/CD Architecture](docs/ci-cd-architecture.svg)
+![CI/CD Architecture](docs/ci-cd-architecture-latest.svg)
 
 - The runner pod (GitHub Actions or CircleCI) launches in Kubernetes as a Job.
 - The runner triggers a builder container (using Buildah, rootless) to build the image.
