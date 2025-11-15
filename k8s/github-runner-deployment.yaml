@@ -30,6 +30,8 @@ spec:
             - SYS_ADMIN
             - SETUID
             - SETGID
+            - CHOWN
+            - FOWNER
           runAsUser: 1000
           privileged: false
         env:

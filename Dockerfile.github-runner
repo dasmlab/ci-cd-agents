@@ -13,10 +13,10 @@ COPY --from=kaniko /kaniko/executor /usr/local/bin/executor
 RUN chmod +x /usr/local/bin/executor
 
 # Create /kaniko directory for kaniko's internal operations
-# Make it writable by the runner user (UID 1000)
+# Make it fully writable by the runner user (UID 1000) - dev/internal cluster
 RUN mkdir -p /kaniko && \
     chown -R 1000:1000 /kaniko && \
-    chmod 755 /kaniko
+    chmod 777 /kaniko
 
 # Create a non-root user for running the runner
 RUN useradd -m runner && \
