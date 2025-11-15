@@ -5,6 +5,13 @@ RUN apt-get update && apt-get install -y \
     curl git buildah uidmap fuse-overlayfs ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Install kaniko executor (Kubernetes-native container builder)
+RUN KANIKO_VERSION=$(curl -s https://api.github.com/repos/GoogleContainerTools/kaniko/releases/latest | grep -o '"tag_name": "[^"]*"' | cut -d'"' -f4) && \
+    if [ -z "$KANIKO_VERSION" ]; then KANIKO_VERSION="v1.24.0"; fi && \
+    curl -L -f "https://github.com/GoogleContainerTools/kaniko/releases/download/${KANIKO_VERSION}/executor-linux-amd64" -o /usr/local/bin/executor && \
+    chmod +x /usr/local/bin/executor && \
+    executor --version || echo "Kaniko installed"
+
 # Create a non-root user for running the runner
 RUN useradd -m runner && \
     chown -R runner:runner /home/runner && \
