@@ -9,8 +9,18 @@ RUN apt-get update && apt-get install -y \
 RUN useradd -m runner && \
     chown -R runner:runner /home/runner && \
     chmod 755 /home/runner
+
+# Configure buildah for rootless operation
+# Set up subuid/subgid mappings for the runner user
+RUN echo "runner:100000:65536" >> /etc/subuid && \
+    echo "runner:100000:65536" >> /etc/subgid && \
+    chown -R runner:runner /home/runner
+
+# Configure buildah storage for rootless user
 USER runner
 WORKDIR /home/runner
+RUN mkdir -p ~/.local/share/containers/storage && \
+    buildah info || true  # Initialize buildah storage
 
 # Install GitHub Actions runner
 # Need to switch to root temporarily to extract, then fix ownership
