@@ -14,6 +14,10 @@ spec:
             secretKeyRef:
               name: github-runner-secrets
               key: github_token
+        - name: GITHUB_REPO_URL
+          value: "https://github.com/YOUR_ORG/YOUR_REPO"  # Replace with your repo/org URL
+        - name: RUNNER_NAME
+          value: "k8s-runner-job"  # Optional: customize runner name
         - name: REGISTRY_PASSWORD
           valueFrom:
             secretKeyRef:

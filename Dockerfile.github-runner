@@ -6,14 +6,31 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user for running the runner
-RUN useradd -m runner
+RUN useradd -m runner && \
+    chown -R runner:runner /home/runner && \
+    chmod 755 /home/runner
 USER runner
 WORKDIR /home/runner
 
 # Install GitHub Actions runner
+# Need to switch to root temporarily to extract, then fix ownership
+USER root
 RUN curl -O -L https://github.com/actions/runner/releases/download/v2.316.0/actions-runner-linux-x64-2.316.0.tar.gz \
     && tar xzf actions-runner-linux-x64-2.316.0.tar.gz \
-    && rm actions-runner-linux-x64-2.316.0.tar.gz
+    && rm actions-runner-linux-x64-2.316.0.tar.gz \
+    && chown -R runner:runner /home/runner \
+    && chmod -R u+rwX /home/runner
+USER runner
 
-# Entrypoint (to be overridden by K8s command)
-CMD ["/bin/bash"] 
+# Copy startup script with executable permissions
+# Need to copy as root, then fix ownership
+USER root
+COPY scripts/start-runner.sh /home/runner/start-runner.sh
+RUN chown runner:runner /home/runner/start-runner.sh && \
+    chmod 755 /home/runner/start-runner.sh && \
+    chown -R runner:runner /home/runner && \
+    chmod -R u+rwX,go-w /home/runner
+USER runner
+
+# Set entrypoint to startup script
+ENTRYPOINT ["/home/runner/start-runner.sh"] 

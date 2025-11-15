@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-runner
+  namespace: github-runner
+spec:
+  replicas: 1  # Adjust based on your needs
+  selector:
+    matchLabels:
+      app: github-actions-runner
+  template:
+    metadata:
+      labels:
+        app: github-actions-runner
+    spec:
+      serviceAccountName: github-runner-sa
+      imagePullSecrets:
+      - name: dasmlab-ghcr-pull
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: runner
+        image: ghcr.io/dasmlab/ci-cd-github-runner:latest  # Update tag if using versioned image
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 1000
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-runner-secrets
+              key: github_token
+        - name: GITHUB_REPO_URL
+          value: "https://github.com/lmcdasm/dasmlab_home"
+        - name: RUNNER_NAME
+          value: "k8s-runner"  # Optional: customize runner name
+        - name: REGISTRY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: registry-secrets
+              key: password
+              optional: true  # Make optional if not needed
+        volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+      volumes:
+      - name: workspace
+        emptyDir: {}
+      restartPolicy: Always
+

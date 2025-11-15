@@ -80,4 +80,31 @@ echo "📤 Pushing branch '$BRANCH' and tag '$NEW_TAG'..."
 git push origin "$BRANCH"
 git push origin "$NEW_TAG"
 
+# Build and push Docker image
+echo "🐳 Building Docker image..."
+./buildme_local.sh
+
+echo "📦 Tagging and pushing Docker image..."
+APP="ci-cd-github-runner"
+REPO="ghcr.io/dasmlab"
+SRC="${APP}:local"
+DST_VERSION="${REPO}/${APP}:${NEW_TAG}"
+DST_LATEST="${REPO}/${APP}:latest"
+
+# Ensure source image exists
+if ! docker image inspect "$SRC" &>/dev/null; then
+    echo "❌ Error: Source image ${SRC} not found after build."
+    exit 1
+fi
+
+# Tag with version and latest
+docker tag "$SRC" "$DST_VERSION"
+docker tag "$SRC" "$DST_LATEST"
+
+# Push both tags
+echo "🚀 Pushing ${DST_VERSION} and ${DST_LATEST}..."
+docker push "$DST_VERSION"
+docker push "$DST_LATEST"
+
 echo "✅ Done: $NEW_TAG pushed with commit to $BRANCH"
+echo "✅ Docker image pushed: ${DST_VERSION} and ${DST_LATEST}"
