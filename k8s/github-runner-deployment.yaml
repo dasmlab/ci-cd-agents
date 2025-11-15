@@ -17,19 +17,21 @@ spec:
       imagePullSecrets:
       - name: dasmlab-ghcr-pull
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
       containers:
       - name: runner
         image: ghcr.io/dasmlab/ci-cd-github-runner:latest  # Update tag if using versioned image
         securityContext:
-          allowPrivilegeEscalation: false
+          allowPrivilegeEscalation: true
           capabilities:
-            drop:
-            - ALL
-          runAsNonRoot: true
-          runAsUser: 1000
+            add:
+            - SYS_ADMIN
+            - SETUID
+            - SETGID
+          runAsUser: 0
+          privileged: false
         env:
         - name: GITHUB_TOKEN
           valueFrom:

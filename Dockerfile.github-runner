@@ -34,14 +34,15 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.316.0/acti
 USER runner
 
 # Copy startup script with executable permissions
-# Need to copy as root, then fix ownership
 USER root
 COPY scripts/start-runner.sh /home/runner/start-runner.sh
-RUN chown runner:runner /home/runner/start-runner.sh && \
-    chmod 755 /home/runner/start-runner.sh && \
-    chown -R runner:runner /home/runner && \
+RUN chmod 755 /home/runner/start-runner.sh && \
+    chown -R root:root /home/runner && \
     chmod -R u+rwX,go-w /home/runner
-USER runner
+
+# Run as root to allow buildah to work properly
+# Buildah needs elevated privileges for user namespace operations
+USER root
 
 # Set entrypoint to startup script
 ENTRYPOINT ["/home/runner/start-runner.sh"] 
