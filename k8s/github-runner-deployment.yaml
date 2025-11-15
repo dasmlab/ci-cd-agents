@@ -25,13 +25,8 @@ spec:
         image: ghcr.io/dasmlab/ci-cd-github-runner:latest  # Update tag if using versioned image
         securityContext:
           allowPrivilegeEscalation: true
-          capabilities:
-            add:
-            - SYS_ADMIN
-            - SETUID
-            - SETGID
+          privileged: true
           runAsUser: 0
-          privileged: false
         env:
         - name: GITHUB_TOKEN
           valueFrom:
