@@ -19,8 +19,9 @@ RUN echo "runner:100000:65536" >> /etc/subuid && \
 # Configure buildah storage for rootless user
 USER runner
 WORKDIR /home/runner
-RUN mkdir -p ~/.local/share/containers/storage && \
-    buildah info || true  # Initialize buildah storage
+RUN mkdir -p ~/.local/share/containers/storage
+# Note: buildah info may fail during image build if user namespaces aren't available
+# This is OK - it will be initialized at runtime
 
 # Install GitHub Actions runner
 # Need to switch to root temporarily to extract, then fix ownership
