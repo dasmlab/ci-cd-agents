@@ -1,3 +1,6 @@
+# Multi-stage build: copy kaniko executor from official image
+FROM gcr.io/kaniko-project/executor:latest AS kaniko
+
 FROM ubuntu:22.04
 
 # Install dependencies
@@ -5,15 +8,9 @@ RUN apt-get update && apt-get install -y \
     curl git buildah uidmap fuse-overlayfs ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install kaniko executor (Kubernetes-native container builder)
-# Extract from the official kaniko container image since standalone binaries aren't available
-RUN docker pull gcr.io/kaniko-project/executor:latest && \
-    docker create --name kaniko-extract gcr.io/kaniko-project/executor:latest && \
-    docker cp kaniko-extract:/kaniko/executor /usr/local/bin/executor && \
-    docker rm kaniko-extract && \
-    docker rmi gcr.io/kaniko-project/executor:latest && \
-    chmod +x /usr/local/bin/executor && \
-    /usr/local/bin/executor --version || echo "Kaniko installed"
+# Copy kaniko executor from the kaniko image
+COPY --from=kaniko /kaniko/executor /usr/local/bin/executor
+RUN chmod +x /usr/local/bin/executor
 
 # Create a non-root user for running the runner
 RUN useradd -m runner && \
