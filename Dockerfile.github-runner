@@ -30,14 +30,14 @@ RUN curl -O -L https://github.com/actions/runner/releases/download/v2.316.0/acti
     && tar xzf actions-runner-linux-x64-2.316.0.tar.gz \
     && rm actions-runner-linux-x64-2.316.0.tar.gz \
     && chown -R root:root /home/runner \
-    && chmod -R 755 /home/runner
+    && chmod -R 777 /home/runner
 
 # Copy startup script with executable permissions
 USER root
 COPY scripts/start-runner.sh /home/runner/start-runner.sh
 RUN chmod 755 /home/runner/start-runner.sh && \
     chown -R root:root /home/runner && \
-    chmod -R u+rwX,go-w /home/runner
+    chmod -R 777 /home/runner
 
 # Run as root to allow buildah to work properly
 # Buildah needs elevated privileges for user namespace operations
